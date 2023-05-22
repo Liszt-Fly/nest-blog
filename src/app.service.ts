@@ -1,8 +1,14 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
+import { ConfigType } from './types/config'
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return `<h1>Hello,world</h1>`
-  }
+	constructor(
+		@Inject("ConfigService")
+		private readonly configService: ConfigType
+	) { }
+	get() {
+		return `app service method` + `<h1>${this.configService.url
+			}</h1>`
+	}
 }
